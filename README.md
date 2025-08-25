@@ -14,6 +14,13 @@ Todo-App — это приложение с фронтендом на Angular и
 - **REST API** для всех операций (доступно через `/api/v1/...`)
 - **SPA фронтенд** с Angular и Nginx, который автоматически отображает актуальные данные
 
+## Интерфейс
+- Страница входа
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/9deac3e9-01b7-45b3-b36b-e820d6365bb9" />
+
+- Страница событий
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/72c94df4-cf06-4235-9381-402d0bf3959a" />
+
 
 ## Структура проекта
 ```
