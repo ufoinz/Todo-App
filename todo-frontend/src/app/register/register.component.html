@@ -1,0 +1,19 @@
+<div class="auth-container">
+    <div class="auth-box">
+        <h2>Регистрация</h2>
+
+        <form (ngSubmit)="onRegister()">
+            <input [(ngModel)]="name" name="name" placeholder="Имя" required>
+            <input [(ngModel)]="email" name="email" type="email" placeholder="Email" required>
+            <input [(ngModel)]="password" name="password" type="password" placeholder="Пароль (min 6)" required>
+            <button type="submit">Зарегистрироваться</button>
+        </form>
+
+        <p class="switch-text">
+            Уже зарегистрированы?
+            <a routerLink="/login">Войти</a>
+        </p>
+
+        <div *ngIf="errorMessage" class="error-msg">{{ errorMessage }}</div>
+    </div>
+</div>

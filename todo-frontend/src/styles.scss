@@ -1,0 +1,17 @@
+body {
+  font-family: 'Raleway', sans-serif;
+  background: linear-gradient(135deg, #e3f1f7, #88d8eb);
+  background-attachment: fixed;
+  min-height: 100vh;
+  margin: 0;
+}
+
+h1, h2, h3 {
+  font-family: 'Raleway', sans-serif;
+  font-weight: 700; // жирный 
+}
+
+p, span, input, button {
+  font-family: 'Raleway', sans-serif;
+  font-weight: 400; // обычный
+}

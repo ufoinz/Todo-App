@@ -1,0 +1,40 @@
+services:
+  db:
+    image: postgres:15-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: todo_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: pass2295
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  backend:
+    build:
+      context: ./todo-backend
+      dockerfile: Dockerfile
+    image: todo-backend:prod
+    restart: unless-stopped
+    env_file:
+      - ./todo-backend/.env
+    depends_on:
+      - db
+    command: ["./wait-for-it.sh", "db:5432", "--timeout=30", "--", "./todo-backend"]
+    ports:
+      - "8080:8080"
+
+  frontend:
+    build:
+      context: ./todo-frontend
+      dockerfile: Dockerfile
+    image: todo-frontend:prod
+    restart: unless-stopped
+    depends_on:
+      - backend
+    ports:
+      - "4200:80"
+
+volumes:
+  db_data:

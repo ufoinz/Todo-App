@@ -1,0 +1,19 @@
+# Stage 1: Build
+FROM golang:1.24-alpine AS builder
+WORKDIR /app
+COPY go.mod go.sum ./
+RUN go mod download
+COPY . .
+RUN CGO_ENABLED=0 GOOS=linux go build -ldflags="-s -w" -o todo-backend ./cmd/api
+COPY wait-for-it.sh /app/wait-for-it.sh
+RUN chmod +x /app/wait-for-it.sh
+
+# Stage 2: Runtime
+FROM alpine:latest
+RUN apk add --no-cache ca-certificates bash
+WORKDIR /root/
+COPY --from=builder /app/todo-backend .
+COPY --from=builder /app/wait-for-it.sh .
+RUN chmod +x wait-for-it.sh
+EXPOSE 8080
+CMD ["./todo-backend"]

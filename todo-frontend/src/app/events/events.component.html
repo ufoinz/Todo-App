@@ -1,0 +1,53 @@
+<button class="leave-btn" (click)="logout()">Выйти</button>
+
+<h2>Мои события</h2>
+<button class="create-btn" (click)="loadEvents()">Обновить список</button>
+
+<div *ngIf="events.length === 0" class="empty-events">
+  <div class="empty-box">
+    <h3>У вас пока нет событий 😴</h3>
+    <p>Создайте первое событие, чтобы начать </p>
+  </div>
+</div>
+
+
+<div class="events-container" *ngIf="events.length > 0">
+  <div class="event-card" *ngFor="let e of events">
+    <h3>{{ e.name }}</h3>
+    <p>{{ e.content || 'Без описания' }}</p>
+    <p>{{ e.time | date:'short' }}</p>
+
+    <button (click)="startEdit(e)">Редактировать</button>
+    <button (click)="deleteEvent(e.id)">Удалить</button>
+  </div>
+</div>
+
+<button class="create-btn" (click)="showCreateForm = true">Создать событие</button>
+
+<div class="modal" [ngClass]="{ 'show': showCreateForm }" *ngIf="showCreateForm">
+  <div class="modal-content">
+    <h3>Новое событие</h3>
+    <form (ngSubmit)="createEvent()">
+      <input [(ngModel)]="newEvent.name" name="name" placeholder="Название*" required>
+      <input [(ngModel)]="newEvent.content" name="content" placeholder="Описание" required>
+      <input [(ngModel)]="newEvent.time" name="time" type="datetime-local" required>
+      <br><br>
+      <button type="submit">Создать</button>
+      <button type="button" (click)="showCreateForm = false">Отмена</button>
+    </form>
+  </div>
+</div>
+
+<div class="modal" [ngClass]="{ 'show': editEvent }" *ngIf="editEvent">
+  <div class="modal-content">
+    <h3>Редактировать событие</h3>
+    <form (ngSubmit)="saveEdit()">
+      <input [(ngModel)]="editEvent.name" name="editName" placeholder="Название*" required>
+      <input [(ngModel)]="editEvent.content" name="editContent" placeholder="Описание">
+      <input [(ngModel)]="editEvent.time" name="editTime" type="datetime-local" required>
+      <br><br>
+      <button type="submit">Сохранить</button>
+      <button type="button" (click)="cancelEdit()">Отмена</button>
+    </form>
+  </div>
+</div>

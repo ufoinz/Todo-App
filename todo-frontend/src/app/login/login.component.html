@@ -1,0 +1,17 @@
+<div class="auth-container">
+  <div class="auth-box">
+    <h2>Вход</h2>
+    <form (ngSubmit)="onLogin()">
+      <input type="email" [(ngModel)]="email" name="email" placeholder="Email" required>
+      <input type="password" [(ngModel)]="password" name="password" placeholder="Пароль" required>
+      <button type="submit">Войти</button>
+    </form>
+
+    <p class="switch-text">
+      Нет аккаунта?
+      <a routerLink="/register">Регистрация</a>
+    </p>
+
+    <div *ngIf="errorMessage" class="error-msg">{{ errorMessage }}</div>
+  </div>
+</div>
